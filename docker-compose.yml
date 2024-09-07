@@ -6,3 +6,15 @@ services:
       - "2222:22"     # Map port 22 for SSH
     volumes:
       - ${HTML_FILES_LOCAL_VOLUME_PATH}:/var/www/html
+    environment:
+      - MYSQL_HOST=db  # Reference the MariaDB container by name
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+    volumes:
+      - ${DB_LOCAL_VOLUME_PATH}:/var/lib/mysql
+    ports:
+      - "3306:3306"    # Expose port 3306 for MariaDB
