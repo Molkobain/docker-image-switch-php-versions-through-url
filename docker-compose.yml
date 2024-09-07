@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"     # Map port 80 for Apache
+      - "2222:22"     # Map port 22 for SSH
+    volumes:
+      - ${HTML_FILES_LOCAL_VOLUME_PATH}:/var/www/html
