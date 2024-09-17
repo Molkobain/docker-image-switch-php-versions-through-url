@@ -34,9 +34,26 @@ RUN a2enmod actions fcgid alias proxy_fcgi
 # - Enable Apache modules for PHP version depending on the URL
 RUN a2enmod rewrite
 
-# - Set up Virtual Hosts and PHP versions
+# - Set up Virtual Hosts and switchable PHP versions
 COPY conf-files/apache2/default-site.conf /etc/apache2/sites-available/000-default.conf
 COPY conf-files/apache2/php-versions-through-url.conf /etc/apache2/conf-available/php-versions-through-url.conf
+
+# - Set up custom PHP options
+#   - 7.4
+COPY conf-files/php/cli/* /etc/php/7.4/cli/conf.d/
+COPY conf-files/php/fpm/* /etc/php/7.4/fpm/conf.d/
+#   - 8.0
+COPY conf-files/php/cli/* /etc/php/8.0/cli/conf.d/
+COPY conf-files/php/fpm/* /etc/php/8.0/fpm/conf.d/
+#   - 8.1
+COPY conf-files/php/cli/* /etc/php/8.1/cli/conf.d/
+COPY conf-files/php/fpm/* /etc/php/8.1/fpm/conf.d/
+#   - 8.2
+COPY conf-files/php/cli/* /etc/php/8.2/cli/conf.d/
+COPY conf-files/php/fpm/* /etc/php/8.2/fpm/conf.d/
+#   - 8.3
+COPY conf-files/php/cli/* /etc/php/8.3/cli/conf.d/
+COPY conf-files/php/fpm/* /etc/php/8.3/fpm/conf.d/
 
 # SSH server
 # - Install necessary packages for SSH server
